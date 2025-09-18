@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Net Banking - Shiva Bank of India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #002147;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #002147;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #002147;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00152d;
+    }
+
+    .back-home {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #002147;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Shiva Bank - Net Banking</h1>
+  </header>
+
+  <div class="container">
+    <h2>Login to Your Net Banking</h2>
+    <form action="#" method="post">
+      <label for="username">User ID / Customer ID</label>
+      <input type="text" id="username" name="username" placeholder="Enter your user ID" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <label for="security-question">Security Question</label>
+      <select id="security-question" name="security-question" required>
+        <option value="">-- Select Question --</option>
+        <option value="pet">What is your pet's name?</option>
+        <option value="birthplace">What is your place of birth?</option>
+        <option value="school">What was the name of your first school?</option>
+      </select>
+
+      <label for="security-answer">Answer</label>
+      <input type="text" id="security-answer" name="security-answer" placeholder="Your answer" required>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <a class="back-home" href="index.html">⬅ Back to Home</a>
+  </div>
+
+  <footer>
+    &copy; 2025 Shiva Bank of India
+  </footer>
+
+</body>
+</html>

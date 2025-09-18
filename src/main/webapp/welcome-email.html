@@ -1,0 +1,48 @@
+package bankingwebsite;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+
+@Service
+public class EmailService {
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Autowired
+    private TemplateEngine templateEngine;
+
+    public void sendRegistrationEmail(User user) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+        helper.setTo(user.getEmail());
+        helper.setSubject("Welcome to Shiva Bank");
+
+        // ✅ Thymeleaf context
+        Context context = new Context();
+        context.setVariable("fullName", user.getFullName());
+        context.setVariable("username", user.getUsername());
+        context.setVariable("phone", user.getPhone());
+        context.setVariable("dob", user.getDob());
+
+        // ✅ Process HTML template
+        String htmlContent = templateEngine.process("welcome-email", context);
+        helper.setText(htmlContent, true);
+
+        // ✅ Inline Images
+        helper.addInline("bankLogo", new ClassPathResource("static/images/shiva-bank-logo.png"));
+        helper.addInline("facebookIcon", new ClassPathResource("static/images/social/facebook.png"));
+        helper.addInline("twitterIcon", new ClassPathResource("static/images/social/twitter.png"));
+        helper.addInline("linkedinIcon", new ClassPathResource("static/images/social/linkedin.png"));
+
+        mailSender.send(mimeMessage);
+    }
+}
