@@ -1,0 +1,12 @@
+target/
+*.iml
+.idea/
+.vscode/
+*.log
+*.class
+*.jar
+*.war
+*.ear
+.DS_Store
+node_modules/
+application.properties

@@ -96,8 +96,7 @@
         securityAnswer: form.securityAnswer.value
       };
 
-      // ✅ Replace with your hosted backend API URL (Spring Boot + Render)
-      fetch("https://shivabank-backend.onrender.com/api/register", {  
+      fetch("https://shivabank-backend.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
@@ -112,8 +111,9 @@
         }
       })
       .catch(err => {
-        document.getElementById("responseMessage").textContent = "Error: " + err.message;
-        document.getElementById("responseMessage").className = "msg error";
+        const resDiv = document.getElementById("responseMessage");
+        resDiv.textContent = "Error: " + err.message;
+        resDiv.className = "msg error";
       });
     });
   </script>
