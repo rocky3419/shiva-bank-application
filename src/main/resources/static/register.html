@@ -72,7 +72,15 @@
       <option value="Female">Female</option>
     </select>
     <input type="password" name="password" placeholder="Password" required>
-    <input type="text" name="securityQuestion" placeholder="Security Question" required>
+    
+    <select name="securityQuestion" required>
+      <option value="" disabled selected>Select a Security Question</option>
+      <option value="What was your first pet's name?">What was your first pet's name?</option>
+      <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+      <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+      <option value="In what city were you born?">In what city were you born?</option>
+    </select>
+
     <input type="text" name="securityAnswer" placeholder="Security Answer" required>
 
     <button type="submit">Register</button>
