@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(
-    origins = "https://bankingwebsite-p5ha.onrender.com",  // ✅ Allow frontend domain
+    origins = "https://bankingwebsite-p5ha.onrender.com",
     allowedHeaders = "*",
     methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS}
 )
@@ -21,20 +21,20 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
-        // ✅ Check duplicate username
+        // Check for duplicate username
         if (userRepository.existsByUsername(user.getUsername())) {
             return ResponseEntity.badRequest().body("❌ Username already taken");
         }
 
-        // ✅ Check duplicate email
-        if (userRepository.existsByUsername(user.getEmail())) {
+        // Correctly check for duplicate email
+        if (userRepository.existsByEmail(user.getEmail())) {
             return ResponseEntity.badRequest().body("❌ Email already registered");
         }
 
-        // ✅ Save user
+        // Save user
         userRepository.save(user);
 
-        // ✅ Send welcome email
+        // Send welcome email
         emailService.sendRegistrationEmail(user);
 
         return ResponseEntity.ok("✅ Registration successful!");
