@@ -120,38 +120,44 @@
     document.getElementById("loginForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value;
+      const responseDiv = document.getElementById("responseMessage");
+      
+      // 1. Create a single JavaScript object with the login data
+      const loginData = {
+          username: document.getElementById("username").value.trim(),
+          password: document.getElementById("password").value
+      };
 
-      // ✅ Corrected backend URL
-     // ✅ UPDATE THIS URL
-fetch("https://bankingwebsite-p5ha.onrender.com/api/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(loginData),
-
+      // 2. Send the data as JSON to your backend
+      fetch("https://bankingwebsite-p5ha.onrender.com/api/login", {
+        method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+        body: JSON.stringify(loginData), // Use the object created above
       })
-        .then((response) => {
+        .then(async (response) => {
+          const message = await response.text();
           if (!response.ok) {
-            return response.text().then(text => { throw new Error(text || "Login failed") });
+            // If the server sends an error, throw it to the .catch block
+            throw new Error(message || "Login failed due to a server error.");
           }
-          return response.text();
+          return message;
         })
         .then((message) => {
-          document.getElementById("responseMessage").textContent = message;
-          document.getElementById("responseMessage").style.color = "green";
-          // Redirect to dashboard on success
+          responseDiv.textContent = message;
+          responseDiv.style.color = "green";
+          
+          // Redirect to a dashboard on successful login
           if (message.toLowerCase().includes("successful")) {
-              window.location.href = "dashboard.html"; 
+              setTimeout(() => {
+                  window.location.href = "/dashboard.html"; 
+              }, 1000); // Wait 1 second before redirecting
           }
         })
         .catch((error) => {
-          document.getElementById("responseMessage").textContent = error.message;
-          document.getElementById("responseMessage").style.color = "red";
+          responseDiv.textContent = error.message;
+          responseDiv.style.color = "red";
         });
     });
   </script>
