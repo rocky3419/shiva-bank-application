@@ -27,7 +27,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
-        Optional<User> userOptional = Optional.of(userRepository.findByUsername(loginRequest.getUsername()));
+        // Correctly assign the Optional returned by the repository
+        Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
