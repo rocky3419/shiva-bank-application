@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Shiva Bank</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(to right, #002147, #005792);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .header .user-info {
+            font-size: 0.9em;
+        }
+
+        .header .user-info a {
+            color: #ffc107;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-message {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .welcome-message h2 {
+            margin: 0;
+            color: #002147;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #005792;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .account-summary p {
+            font-size: 1.2em;
+            margin: 15px 0;
+        }
+
+        .account-summary .balance {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 1.8em;
+        }
+
+        .quick-actions a {
+            display: block;
+            background-color: #e0f2f1;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #00796b;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .quick-actions a:hover {
+            background-color: #b2dfdb;
+        }
+
+        .recent-transactions ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recent-transactions li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .recent-transactions li:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-debit { color: #c62828; }
+        .transaction-credit { color: #2e7d32; }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>Shiva Bank</h1>
+        <div class="user-info">
+            <span>Welcome, <span id="username-display">Srikanth321</span></span>
+            <a href="/logout">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome-message">
+            <h2>Your Dashboard</h2>
+            <p>Here is an overview of your account activity.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card account-summary">
+                <h3>Account Summary</h3>
+                <p>Account Number: <span id="account-number">...xxxx1234</span></p>
+                <p>Available Balance:</p>
+                <p class="balance" id="account-balance">₹1,25,450.75</p>
+            </div>
+
+            <div class="card quick-actions">
+                <h3>Quick Actions</h3>
+                <a href="/transfer">Fund Transfer</a>
+                <a href="/statement">View Statement</a>
+                <a href="/services">Request Services</a>
+                <a href="/profile">My Profile</a>
+            </div>
+
+            <div class="card recent-transactions">
+                <h3>Recent Transactions</h3>
+                <ul>
+                    <li><span>Zomato Order</span><span class="transaction-debit">- ₹450.00</span></li>
+                    <li><span>Salary Credit</span><span class="transaction-credit">+ ₹75,000.00</span></li>
+                    <li><span>ATM Withdrawal</span><span class="transaction-debit">- ₹5,000.00</span></li>
+                    <li><span>Online Shopping</span><span class="transaction-debit">- ₹2,100.00</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // In a real application, you would make an API call here to fetch user data
+        // and populate the dashboard dynamically.
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            // Example:
+            // fetch('/api/user/dashboard-data')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         document.getElementById('username-display').textContent = data.username;
+            //         document.getElementById('account-number').textContent = data.accountNumber;
+            //         document.getElementById('account-balance').textContent = `₹${data.balance.toFixed(2)}`;
+            //         // etc.
+            //     });
+        });
+    </script>
+
+</body>
+</html>
