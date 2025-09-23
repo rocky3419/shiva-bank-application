@@ -174,22 +174,23 @@
         </div>
     </div>
 
-    <script>
-        // In a real application, you would make an API call here to fetch user data
-        // and populate the dashboard dynamically.
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            // Example:
-            // fetch('/api/user/dashboard-data')
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         document.getElementById('username-display').textContent = data.username;
-            //         document.getElementById('account-number').textContent = data.accountNumber;
-            //         document.getElementById('account-balance').textContent = `₹${data.balance.toFixed(2)}`;
-            //         // etc.
-            //     });
-        });
-    </script>
-
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Use the full URL to your backend
+        fetch('https://bankingwebsite-p5ha.onrender.com/api/user/dashboard-data')
+            .then(response => response.json())
+            .then(data => {
+                // Use the data from the backend to update the page
+                document.getElementById('username-display').textContent = data.username;
+                document.getElementById('account-number').textContent = data.accountNumber;
+                document.getElementById('account-balance').textContent = `₹${data.balance.toFixed(2)}`;
+            })
+            .catch(error => {
+                console.error('Error fetching dashboard data:', error);
+                // Display an error on the page if the API call fails
+                document.querySelector('.welcome-message p').textContent = "Could not load account data.";
+            });
+    });
+</script>
 </body>
 </html>
