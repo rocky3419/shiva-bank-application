@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(
-    origins = "https://bankingwebsite-p5ha.onrender.com",
-    allowedHeaders = "*",
-    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS}
-)
+@CrossOrigin(origins = "https://bankingwebsite-p5ha.onrender.com")
 public class RegisterController {
 
     @Autowired
