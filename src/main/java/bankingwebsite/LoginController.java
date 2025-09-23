@@ -5,7 +5,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://bankingwebsite-p5ha.onrender.com")
 public class LoginController {
 
     @Autowired
