@@ -1,9 +1,169 @@
-<!-- Include Chatbot -->
-<div class="chatbot-widget" id="chatbot">
-  <div class="chat-header">💬 Shiva AI Assistant</div>
-  <div class="chat-body" id="chat-body"></div>
-  <div class="chat-input">
-    <input type="text" id="user-input" placeholder="Ask me anything..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiva AI Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-width: 90%;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chat-header {
+            background: #005792;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .chat-body {
+            height: 300px;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 10px;
+            outline: none;
+        }
+        
+        #send-button {
+            background-color: #005792;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #e9e9eb;
+            color: #333;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Your Website Content</h1>
+    <p>The chatbot will appear in the bottom right corner of this page.</p>
+
+    <div class="chatbot-widget" id="chatbot">
+      <div class="chat-header">💬 Shiva AI Assistant</div>
+      <div class="chat-body" id="chat-body">
+        <div class="message bot-message">Hello! How can I help you today?</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="user-input" placeholder="Ask me anything..." />
+        <button id="send-button">Send</button>
+      </div>
+    </div>
+
+    <script>
+        const chatBody = document.getElementById('chat-body');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        // Function to handle sending a message
+        function sendMessage() {
+            const userMessage = userInput.value.trim();
+            if (userMessage === '') return;
+
+            // Display user's message
+            appendMessage(userMessage, 'user-message');
+            userInput.value = '';
+
+            // Get bot's response after a short delay
+            setTimeout(() => {
+                const botMessage = getBotResponse(userMessage);
+                appendMessage(botMessage, 'bot-message');
+            }, 500);
+        }
+        
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Function to add a message to the chat display
+        function appendMessage(message, className) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', className);
+            messageDiv.textContent = message;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight; // Scroll to the bottom
+        }
+
+        // Simple rule-based logic for the bot's responses
+        function getBotResponse(message) {
+            const lowerCaseMessage = message.toLowerCase();
+
+            if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
+                return 'Hello! Welcome to Shiva Bank. How can I help you?';
+            }
+            if (lowerCaseMessage.includes('balance')) {
+                return 'To check your balance, please log in to your account and visit the dashboard.';
+            }
+
+            if (lowerCaseMessage.includes('loan')) {
+                return 'We offer Home Loans, Car Loans, and Personal Loans. Please visit our "Services" page for more details.';
+            }
+            if (lowerCaseMessage.includes('hours') || lowerCaseMessage.includes('open')) {
+                return 'Our branches are open from 10 AM to 4 PM, Monday to Friday.';
+            }
+            if (lowerCaseMessage.includes('thank')) {
+                return "You're welcome! Is there anything else I can assist with?";
+            }
+            return "I'm sorry, I don't understand that. You can ask about balance, loans, or opening hours.";
+        }
+    </script>
+
+</body>
+</html>
