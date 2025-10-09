@@ -3,89 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <title>Open Account - Shiva Bank</title>
-  <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f6f8;
+    body { 
+        font-family: Arial, sans-serif; 
+        margin: 0; 
+        background-color: #f4f6f8; 
     }
-
-    header {
-      background-color: #05284b;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    header { 
+        background-color: #05284b; 
+        color: white; 
+        padding: 20px; 
+        text-align: center; 
     }
-
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
+    nav a { 
+        color: white; 
+        margin: 0 15px; 
+        text-decoration: none; 
     }
-
-    nav a:hover {
-      text-decoration: underline;
+    section { 
+        max-width: 900px; 
+        margin: 30px auto; 
+        padding: 40px; 
+        background-color: #fff; 
+        border-radius: 10px; 
+        box-shadow: 0 0 10px rgba(0,0,0,0.1); 
     }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px;
-      background-color: #766767;
-      border-radius: 10px;
-      margin-top: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    h2 { 
+        text-align: center; 
+        color: #05284b; 
+        margin-bottom: 30px; 
     }
-
-    h2 {
-      text-align: center;
-      color: #05284b;
-      margin-bottom: 30px;
+    form label { 
+        display: block; 
+        margin-top: 15px; 
+        font-weight: bold; 
     }
-
-    form label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+    input, select, textarea { 
+        width: 100%; 
+        padding: 10px; 
+        margin-top: 5px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        box-sizing: border-box; 
     }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #212020;
-      border-radius: 5px;
+    button { 
+        margin-top: 25px; 
+        padding: 12px 25px; 
+        background-color: #05284b; 
+        color: #fff; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
     }
-
-    button {
-      margin-top: 25px;
-      padding: 12px 25px;
-      background-color: #05284b;
-      color: rgb(223, 213, 213);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    button:hover { 
+        background-color: #001f3f; 
     }
-
-    button:hover {
-      background-color: #001f3f;
+    .verify-btn { 
+        background-color: #28a745; 
+        margin-top: 10px; 
     }
-
-    footer {
-      text-align: center;
-      background-color: #05284b;
-      color: rgb(223, 214, 214);
-      padding: 20px;
-      margin-top: 40px;
+    .verify-btn:hover { 
+        background-color: #218838; 
     }
-
-    .back-home {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #05284b;
-      font-weight: bold;
+    footer { 
+        text-align: center; 
+        background-color: #05284b; 
+        color: #fff; 
+        padding: 20px; 
+        margin-top: 40px; 
+    }
+    .feedback { 
+        font-size: 0.9em; 
+        margin-top: 5px; 
+        font-weight: bold; 
+    }
+    .valid { 
+        color: green; 
+    }
+    .invalid { 
+        color: red; 
     }
   </style>
 </head>
@@ -103,7 +99,7 @@
 
   <section>
     <h2>Instant Bank Account Opening</h2>
-    <form>
+    <form id="accountForm">
       <label for="fullName">Full Name:</label>
       <input type="text" id="fullName" name="fullName" required>
 
@@ -126,12 +122,20 @@
 
       <label for="address">Residential Address:</label>
       <textarea id="address" name="address" rows="3" required></textarea>
+      
+      <hr style="margin-top: 30px;">
 
       <label for="aadhar">Aadhaar Number:</label>
-      <input type="text" id="aadhar" name="aadhar" maxlength="12" required>
+      <input type="text" id="aadhar" name="aadhar" maxlength="12" placeholder="Enter 12-digit Aadhaar number" required>
+      <div id="aadharFeedback" class="feedback"></div>
 
       <label for="pan">PAN Card Number:</label>
-      <input type="text" id="pan" name="pan" required>
+      <input type="text" id="pan" name="pan" placeholder="Enter 10-character PAN" required>
+      <div id="panFeedback" class="feedback"></div>
+
+      <button type="button" class="verify-btn" onclick="verifyDocuments()">Verify Documents</button>
+
+      <hr style="margin-top: 30px;">
 
       <label for="accountType">Account Type:</label>
       <select id="accountType" name="accountType" required>
@@ -145,17 +149,44 @@
       <input type="text" id="nominee" name="nominee">
 
       <label for="photo">Upload Photo:</label>
-      <input type="file" id="photo" name="photo">
+      <input type="file" id="photo" name="photo" accept="image/*">
 
       <button type="submit">Submit Application</button>
     </form>
-
-    <a class="back-home" href="index.html">← Back to Home</a>
   </section>
 
   <footer>
     <p>&copy; 2025 Shiva Bank. All rights reserved.</p>
   </footer>
+
+  <script>
+    function verifyDocuments() {
+      const aadharInput = document.getElementById('aadhar');
+      const panInput = document.getElementById('pan');
+      const aadharFeedback = document.getElementById('aadharFeedback');
+      const panFeedback = document.getElementById('panFeedback');
+
+      // Aadhaar Validation (12 digits, no spaces)
+      const aadharPattern = /^\d{12}$/;
+      if (aadharPattern.test(aadharInput.value)) {
+        aadharFeedback.textContent = '✓ Aadhaar format is valid.';
+        aadharFeedback.className = 'feedback valid';
+      } else {
+        aadharFeedback.textContent = '✗ Invalid Aadhaar format. Must be 12 digits.';
+        aadharFeedback.className = 'feedback invalid';
+      }
+
+      // PAN Validation (5 uppercase letters, 4 numbers, 1 uppercase letter)
+      const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+      if (panPattern.test(panInput.value.toUpperCase())) {
+        panFeedback.textContent = '✓ PAN format is valid.';
+        panFeedback.className = 'feedback valid';
+      } else {
+        panFeedback.textContent = '✗ Invalid PAN format. Example: ABCDE1234F';
+        panFeedback.className = 'feedback invalid';
+      }
+    }
+  </script>
 
 </body>
 </html>
