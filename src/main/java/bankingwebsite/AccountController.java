@@ -9,15 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AccountController {
 
-    @Autowired
-    private AccountRepository accountRepository;
+	// Add to your controller
+	@Autowired
+	private AccountRepository accountRepository;
 
-    @PostMapping("/api/open-account")
-    public ResponseEntity<String> openAccount(@RequestBody Account newAccount) {
-        // You would add more validation and logic here
-        
-        accountRepository.save(newAccount);
-        
-        return ResponseEntity.ok("Account application submitted successfully!");
+	@PostMapping("/api/open-account")
+	public ResponseEntity<String> openAccount(@RequestBody Account newAccount) {
+	    // Add validation logic here if needed
+	    
+	    accountRepository.save(newAccount);
+	    
+	    return ResponseEntity.ok("Account application submitted successfully!");
+	
     }
 }
