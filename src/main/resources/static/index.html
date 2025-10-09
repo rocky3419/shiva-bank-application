@@ -135,20 +135,17 @@ J<!DOCTYPE html>
 
   
 
-  <link rel="stylesheet" href="chatbot.css">
-<!-- Place this where you want the chatbot to appear -->
-<div id="chatbot-placeholder"></div>
-<script src="chatbot.js"></script>
-<!-- Include Chatbot -->
-<!-- Chatbot -->
-<div class="chatbot-widget" id="chatbot">
+  <div class="chatbot-widget" id="chatbot">
   <div class="chat-header">💬 Janu - AI Assistant</div>
-  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-body" id="chat-body">
+      </div>
   <div class="chat-input">
     <input type="text" id="user-input" placeholder="Ask me anything..." />
-    <button onclick="sendMessage()">Send</button>
+    <button id="send-btn">Send</button>
   </div>
 </div>
+
+<script src="chatbot.js"></script>
 
 
 
