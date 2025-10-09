@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open Account - Shiva Bank</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f6f8; }
+    header { background-color: #05284b; color: white; padding: 20px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    section { max-width: 900px; margin: 30px auto; padding: 40px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #05284b; margin-bottom: 30px; }
+    form label { display: block; margin-top: 15px; font-weight: bold; }
+    input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+    button { margin-top: 25px; padding: 12px 25px; background-color: #05284b; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    .otp-btn { background-color: #28a745; }
+    footer { text-align: center; background-color: #05284b; color: #fff; padding: 20px; margin-top: 40px; }
+    #otp-section { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #f0f0f0; }
+    .feedback { font-size: 0.9em; margin-top: 5px; font-weight: bold; }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shiva Bank</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <section>
+    <h2>Instant Bank Account Opening</h2>
+    <form id="accountForm">
+      <div id="details-section">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+        
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="phone">Mobile Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <button type="button" class="otp-btn" onclick="sendOtp()">Send OTP</button>
+        <div id="otp-feedback" class="feedback"></div>
+      </div>
+
+      <div id="otp-section">
+        <label for="otp">Enter OTP:</label>
+        <input type="text" id="otp" name="otp" maxlength="6" placeholder="Enter 6-digit code" required>
+        
+        <button type="submit">Submit Application</button>
+      </div>
+    </form>
+  </section>
+  <footer>
+    <p>&copy; 2025 Shiva Bank. All rights reserved.</p>
+  </footer>
+  <script>
+    function sendOtp() {
+      const email = document.getElementById('email').value;
+      const otpFeedback = document.getElementById('otp-feedback');
+
+      if (!email) {
+        otpFeedback.textContent = 'Please enter your email address first.';
+        otpFeedback.className = 'feedback error';
+        return;
+      }
+
+      // Call your backend to send the OTP
+      fetch('/api/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(response => {
+        if (!response.ok) { throw new Error('Failed to send OTP.'); }
+        return response.text();
+      })
+      .then(message => {
+        otpFeedback.textContent = message;
+        otpFeedback.className = 'feedback success';
+        // Show the OTP entry section
+        document.getElementById('otp-section').style.display = 'block';
+        document.querySelector('.otp-btn').style.display = 'none'; // Hide "Send OTP" button
+      })
+      .catch(error => {
+        otpFeedback.textContent = error.message;
+        otpFeedback.className = 'feedback error';
+      });
+    }
+
+    // Handle the final form submission
+    document.getElementById('accountForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Here you would gather all form data (including the OTP)
+        // and send it to a final backend endpoint for verification and account creation.
+        alert('Form submitted for final verification!');
+    });
+  </script>
+</body>
+</html>
