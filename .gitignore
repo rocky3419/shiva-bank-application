@@ -10,3 +10,4 @@ target/
 .DS_Store
 node_modules/
 application.properties
+/n# Local config and secrets/nsrc/main/resources/application.properties/n.env/n
